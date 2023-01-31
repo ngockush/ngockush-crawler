@@ -7,7 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as SP;
 use Ophim\Crawler\OphimCrawler\Console\CrawlerScheduleCommand;
 use Ophim\Crawler\OphimCrawler\Option;
 
-class OphimCrawlerServiceProvider extends SP
+class NgocKushCrawlerServiceProvider extends SP
 {
     /**
      * Get the policies defined on the provider.
