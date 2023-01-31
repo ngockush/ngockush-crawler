@@ -66,12 +66,13 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-12">
-                        <label>Api key</label>
-                        <input type="text" class="form-control" name="api_key">
-                    </div>
+
                     <div class="form-group col-12">
                         <div class="row">
+                            <div class="form-group col-12">
+                                <label>Api key</label>
+                                <input type="text" class="form-control" name="api_key">
+                            </div>
                             <div class="form-group col-3">
                                 <label>Từ page</label>
                                 <input type="number" class="form-control" name="from" min="0" value="1">
@@ -287,6 +288,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
         const btn = $(this);
         const link = $('textarea[name="link"]').val();
         const from = parseInt($('input[name="from"]').val());
+        const api_key = $('input[name="api_key"]').val();
         const to = parseInt($('input[name="to"]').val());
 
         if (!link) {
@@ -295,13 +297,14 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
         }
         $('textarea[name="link"]').removeClass('is-invalid');
 
-        const fetchApi = async (link, from, to) => {
+        const fetchApi = async (link, from, to, api_key) => {
             isFetching = true;
             const response = await fetch("{{ backpack_url('plugin/ngockush-crawler/fetch') }}?" +
                 new URLSearchParams({
                     link,
                     from,
-                    to
+                    to,
+                    api_key
                 }));
 
             if (response.status >= 200 && response.status < 300) {
