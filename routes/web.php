@@ -14,7 +14,7 @@ Route::group([
         (array) config('backpack.base.web_middleware', 'web'),
         (array) config('backpack.base.middleware_key', 'admin')
     ),
-    'namespace'  => 'Ophim\Crawler\OphimCrawler\Controllers',
+    'namespace'  => 'Ngockush\Crawler\NgockushCrawler\Controllers',
 ], function () {
     Route::get('/plugin/ngockush-crawler', 'CrawlController@showCrawlPage');
     Route::get('/plugin/ngockush-crawler/options', 'CrawlerSettingController@editOptions');

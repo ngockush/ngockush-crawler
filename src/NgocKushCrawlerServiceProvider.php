@@ -1,11 +1,11 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler;
+namespace Ngockush\Crawler\NgockushCrawler;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as SP;
-use Ophim\Crawler\OphimCrawler\Console\CrawlerScheduleCommand;
-use Ophim\Crawler\OphimCrawler\Option;
+use Ngockush\Crawler\NgockushCrawler\Console\CrawlerScheduleCommand;
+use Ngockush\Crawler\NgockushCrawler\Option;
 
 class NgocKushCrawlerServiceProvider extends SP
 {
@@ -47,7 +47,7 @@ class NgocKushCrawlerServiceProvider extends SP
         config(['ophim.updaters' => array_merge(config('ophim.updaters', []), [
             [
                 'name' => 'Ngockush Crawler',
-                'handler' => 'Ophim\Crawler\OphimCrawler\Crawler'
+                'handler' => 'Ngockush\Crawler\NgockushCrawler\Crawler'
             ]
         ])]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler;
+namespace Ngockush\Crawler\NgockushCrawler;
 
 use Backpack\Settings\app\Models\Setting;
 use Illuminate\Support\Facades\Cache;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler\Controllers;
+namespace Ngockush\Crawler\NgockushCrawler\Controllers;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\Settings\app\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
-use Ophim\Crawler\OphimCrawler\Option;
+use Ngockush\Crawler\NgockushCrawler\Option;
 use Prologue\Alerts\Facades\Alert;
 
 class CrawlerSettingController extends CrudController

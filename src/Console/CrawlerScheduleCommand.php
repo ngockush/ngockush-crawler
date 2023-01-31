@@ -1,13 +1,13 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler\Console;
+namespace Ngockush\Crawler\NgockushCrawler\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Ophim\Crawler\OphimCrawler\Crawler;
-use Ophim\Crawler\OphimCrawler\Option;
-use Ophim\Crawler\OphimCrawler\Contracts\BaseCrawler;
+use Ngockush\Crawler\NgockushCrawler\Crawler;
+use Ngockush\Crawler\NgockushCrawler\Option;
+use Ngockush\Crawler\NgockushCrawler\Contracts\BaseCrawler;
 
 class CrawlerScheduleCommand extends Command
 {
