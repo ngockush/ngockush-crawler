@@ -71,7 +71,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                         <div class="row">
                             <div class="form-group col-12">
                                 <label>Api key</label>
-                                <input type="text" class="form-control" name="api_key">
+                                <input type="text" class="form-control" id="api_key" name="api_key">
                             </div>
                             <div class="form-group col-3">
                                 <label>Từ page</label>
@@ -288,15 +288,19 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
         const btn = $(this);
         const link = $('textarea[name="link"]').val();
         const from = parseInt($('input[name="from"]').val());
-        const api_key = $('input[name="api_key"]').val();
+        const _api_key = $('input[name="api_key"]').val();
         const to = parseInt($('input[name="to"]').val());
-
+        console.log(_api_key);
+        if (!_api_key) {
+            $('input[name="api_key"]').addClass('is-invalid');
+            return;
+        }
         if (!link) {
             $('textarea[name="link"]').addClass('is-invalid');
             return;
         }
         $('textarea[name="link"]').removeClass('is-invalid');
-
+        $('input[name="api_key"]').removeClass('is-invalid');
         const fetchApi = async (link, from, to, api_key) => {
             isFetching = true;
             const response = await fetch("{{ backpack_url('plugin/ngockush-crawler/fetch') }}?" +
@@ -343,7 +347,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
             $('.btn-load').html(`Đang tải...: Page ${current}/${to}`);
 
-            fetchApi(link, current, current).then(res => {
+            fetchApi(link, current, current, _api_key).then(res => {
                 if (res.payload.length > 0) {
                     listMovies = listMovies.concat(res.payload);
                     let curTotal = parseInt($('.total-movie-count').html());
