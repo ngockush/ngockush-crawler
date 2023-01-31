@@ -70,7 +70,7 @@ class CrawlController extends CrudController
         $pattern = sprintf('%s/movies/detail/{slug}?api_key=' . $request['api_key'], config('ophim_crawler.domain', 'https://anime.s2fastplayer.xyz'));
         try {
             $link = str_replace('{slug}', $request['slug'], $pattern);
-            $crawler = (new Crawler($link, request('fields', []), request('excludedCategories', []), request('excludedRegions', []), request('excludedType', []), request('forceUpdate', false)))->handle();
+            $crawler = (new Crawler($link, $request['api_key'], request('fields', []), request('excludedCategories', []), request('excludedRegions', []), request('excludedType', []), request('forceUpdate', false)))->handle();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'wait' => false], 500);
         }
