@@ -19,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ophim\\Crawler\\OphimCrawler\\OphimCrawlerServiceProvider"
+                "Ophim\\Crawler\\OphimCrawler\\NgocKushCrawlerServiceProvider"
             ]
         }
     },

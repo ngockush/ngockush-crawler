@@ -23,10 +23,10 @@ class OphimCrawlerServiceProvider extends SP
     {
 
         config(['plugins' => array_merge(config('plugins', []), [
-            'hacoidev/ngockush-crawler' =>
+            'ngockush/ngockush-crawler' =>
             [
                 'name' => 'Ngockush Crawler',
-                'package_name' => 'hacoidev/ngockush-crawler',
+                'package_name' => 'ngockush/ngockush-crawler',
                 'icon' => 'la la-hand-grab-o',
                 'entries' => [
                     ['name' => 'Crawler', 'icon' => 'la la-hand-grab-o', 'url' => backpack_url('/plugin/ngockush-crawler')],
@@ -38,7 +38,7 @@ class OphimCrawlerServiceProvider extends SP
         config(['logging.channels' => array_merge(config('logging.channels', []), [
             'ngockush-crawler' => [
                 'driver' => 'daily',
-                'path' => storage_path('logs/hacoidev/ngockush-crawler.log'),
+                'path' => storage_path('logs/ngockush/ngockush-crawler.log'),
                 'level' => env('LOG_LEVEL', 'debug'),
                 'days' => 7,
             ],
