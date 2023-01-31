@@ -26,14 +26,14 @@ class CrawlController extends CrudController
 
             foreach ($request['link'] as $link) {
                 if (preg_match('/(.*?)(\/movies\/detail\/)(.*?)/', $link)) {
-                    $link = sprintf('%s/movies/detail/%s?api_key=' . $request['api_key'], config('ophim_crawler.domain', 'https://anime.s2fastplayer.xyz'), explode('movies/detail/', $link)[1]);
+                    $link = sprintf('%s/movies/detail/%s?api_key=QuaWpJdasPfXSlRdqjltMzAlMkYwMSUyRjIwMjM=', config('ophim_crawler.domain', 'https://anime.s2fastplayer.xyz'), explode('movies/detail/', $link)[1]);
                     $response = json_decode(file_get_contents($link), true);
                     $data->push(collect($response['movie'])->only('name', 'slug')->toArray());
                 } else {
                     for ($i = $request['from']; $i <= $request['to']; $i++) {
                         $response = json_decode(Http::timeout(30)->get($link, [
                             'page' => $i,
-                            'api_key' => $request['api_key']
+                            'api_key' => 'QuaWpJdasPfXSlRdqjltMzAlMkYwMSUyRjIwMjM='
                         ]), true);
                         if ($response['status']) {
                             $data->push(...$response['items']);
@@ -67,10 +67,10 @@ class CrawlController extends CrudController
 
     public function crawl(Request $request)
     {
-        $pattern = sprintf('%s/movies/detail/{slug}?api_key=' . $request['api_key'], config('ophim_crawler.domain', 'https://anime.s2fastplayer.xyz'));
+        $pattern = sprintf('%s/movies/detail/{slug}?api_key=QuaWpJdasPfXSlRdqjltMzAlMkYwMSUyRjIwMjM=', config('ophim_crawler.domain', 'https://anime.s2fastplayer.xyz'));
         try {
             $link = str_replace('{slug}', $request['slug'], $pattern);
-            $crawler = (new Crawler($link, $request['api_key'], request('fields', []), request('excludedCategories', []), request('excludedRegions', []), request('excludedType', []), request('forceUpdate', false)))->handle();
+            $crawler = (new Crawler($link, request('fields', []), request('excludedCategories', []), request('excludedRegions', []), request('excludedType', []), request('forceUpdate', false)))->handle();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'wait' => false], 500);
         }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Ophim\Crawler\OphimCrawler\Crawler;
 use Ophim\Crawler\OphimCrawler\Option;
+use Ophim\Crawler\OphimCrawler\Contracts\BaseCrawler;
 
 class CrawlerScheduleCommand extends Command
 {
@@ -43,19 +44,20 @@ class CrawlerScheduleCommand extends Command
      */
     public function handle()
     {
-        if(!$this->checkCrawlerScheduleEnable()) return 0;
+        if (!$this->checkCrawlerScheduleEnable()) return 0;
         $link = sprintf('%s/movies/phim-moi-cap-nhat?api_key=QuaWpJdasPfXSlRdqjltMzAlMkYwMSUyRjIwMjM=', Option::get('domain'));
         $data = collect();
         $page_from = Option::get('crawler_schedule_page_from', 1);
         $page_to = Option::get('crawler_schedule_page_to', 2);
         $this->logger->notice(sprintf("Crawler Page (FROM: %d | TO: %d)",  $page_from, $page_to));
         for ($i = $page_from; $i <= $page_to; $i++) {
-            if(!$this->checkCrawlerScheduleEnable()) {
+            if (!$this->checkCrawlerScheduleEnable()) {
                 $this->logger->notice(sprintf("Stop Crawler Page"));
                 return 0;
             }
             $response = json_decode(Http::timeout(30)->get($link, [
-                'page' => $i
+                'page' => $i,
+                'api_key' => 'QuaWpJdasPfXSlRdqjltMzAlMkYwMSUyRjIwMjM='
             ]), true);
             if ($response['status'] && count($response['items'])) {
                 $data->push(...$response['items']);
@@ -67,18 +69,20 @@ class CrawlerScheduleCommand extends Command
         $count_error = 0;
         foreach ($movies as $key => $movie) {
             try {
-                if(!$this->checkCrawlerScheduleEnable()) {
+                if (!$this->checkCrawlerScheduleEnable()) {
                     $this->logger->notice(sprintf("Stop Crawler Movies (TOTAL: %d | CRAWED: %d | ERROR %d)", $count_movies, $key, $count_error));
                     return 0;
                 }
                 $link = sprintf('%s/movies/detail/%s?api_key=QuaWpJdasPfXSlRdqjltMzAlMkYwMSUyRjIwMjM=', Option::get('domain'), $movie['slug']);
                 $crawler = (new Crawler(
                     $link,
+                    Option::get('crawler_schedule_api_key', []),
                     Option::get('crawler_schedule_fields', Option::getAllOptions()['crawler_schedule_fields']['default']),
                     Option::get('crawler_schedule_excludedCategories', []),
                     Option::get('crawler_schedule_excludedRegions', []),
                     Option::get('crawler_schedule_excludedType', []),
-                    false))
+                    false
+                ))
                     ->handle();
             } catch (\Exception $e) {
                 $this->logger->error(sprintf("%s ERROR: %s", $movie['slug'], $e->getMessage()));
