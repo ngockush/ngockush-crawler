@@ -9,7 +9,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ophim\\Crawler\\OphimCrawler\\": "src/"
+            "Ngockush\\Crawler\\NgockushCrawler\\": "src/"
         }
     },
     "authors": [{
@@ -19,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ophim\\Crawler\\OphimCrawler\\NgocKushCrawlerServiceProvider"
+                "Ngockush\\Crawler\\NgockushCrawler\\NgocKushCrawlerServiceProvider"
             ]
         }
     },
