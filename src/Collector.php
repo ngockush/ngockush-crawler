@@ -23,24 +23,24 @@ class Collector
         $episodes = $this->payload['episodes'] ?? [];
 
         $data = [
-            'name' => $info['name'],
-            'origin_name' => $info['origin_name'],
-            'publish_year' => $info['year'],
-            'content' => $info['content'],
+            'name' => $info['name'] ? $info['name'] : NULL,
+            'origin_name' => $info['origin_name'] ? $info['origin_name'] : NULL,
+            'publish_year' => $info['year'] ? $info['year'] : NULL,
+            'content' => $info['content'] ? $info['content'] : NULL,
             'type' =>  $this->getMovieType($info, $episodes),
-            'status' => $info['status'],
+            'status' => $info['status'] ? $info['status'] : 'ongoing',
             'thumb_url' => $this->getThumbImage($info['slug'], $info['thumb_url']),
             'poster_url' => $this->getPosterImage($info['slug'], $info['poster_url']),
             'is_copyright' => $info['is_copyright'] != 'off',
             'trailer_url' => $info['trailer_url'] ?? "",
-            'quality' => $info['quality'],
-            'language' => $info['lang'],
-            'episode_time' => $info['time'],
-            'episode_current' => $info['episode_current'],
-            'episode_total' => $info['episode_total'],
-            'notify' => $info['notify'],
-            'showtimes' => $info['showtimes'],
-            'is_shown_in_theater' => $info['chieurap'],
+            'quality' => $info['quality'] ? $info['quality'] : NULL,
+            'language' => $info['lang'] ? $info['lang'] : NULL,
+            'episode_time' => $info['time'] ? $info['time'] : 'N/A',
+            'episode_current' => $info['episode_current'] ? $info['episode_current'] : 'N/A',
+            'episode_total' => $info['episode_total'] ? $info['episode_total'] : 'N/A',
+            'notify' => $info['notify'] ? $info['notify'] : NULL,
+            'showtimes' => $info['showtimes'] ? $info['showtimes'] : NULL,
+            'is_shown_in_theater' => $info['chieurap'] ? $info['chieurap'] : false,
         ];
 
         return $data;
